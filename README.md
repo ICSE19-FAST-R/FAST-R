@@ -9,6 +9,6 @@ Experiment Results and Data
 The results of our experiments as well as the data we used for our statistical analysis are available [here](results/README.md).
 
 
-Pseudocode
+Pseudocodes
 ---------------
-The pseudocode of all algorithms is available [here](pseudocode/README.md).
+The pseudocodes of all algorithms are available [here](pseudocode/README.md) (some of them were not reported in the paper for lack of space).

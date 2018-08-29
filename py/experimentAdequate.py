@@ -31,7 +31,6 @@ if __name__ == "__main__":
     D4J = [("math", "v1"), ("closure", "v1"), ("time", "v1"), ("lang", "v1"), ("chart", "v1")]
     script, covType, prog, v = sys.argv
 
-    repeats = 50
     directory = "outputAdequate-{}/{}_{}/".format(covType, prog, v)
     if not os.path.exists(directory):
         os.makedirs(directory)
@@ -39,6 +38,8 @@ if __name__ == "__main__":
         os.makedirs(directory + "selections/")
     if not os.path.exists(directory + "measures/"):
         os.makedirs(directory + "measures/")
+
+    repeats = 50
 
     # FAST parameters
     k, n, r, b = 5, 10, 1, 10

@@ -31,41 +31,43 @@ if __name__ == "__main__":
     D4J = [("math", "v1"), ("closure", "v1"), ("time", "v1"), ("lang", "v1"), ("chart", "v1")]
     script, covType, prog, v = sys.argv
 
+    directory = "outputBudget-{}/{}_{}/".format(covType, prog, v)
+    if not os.path.exists(directory):
+        os.makedirs(directory)
+    if not os.path.exists(directory + "selections/"):
+        os.makedirs(directory + "selections/")
+    if not os.path.exists(directory + "measures/"):
+        os.makedirs(directory + "measures/")
+
     repeats = 50
+
+    # FAST-R parameters
+    k, n, r, b = 5, 10, 1, 10
+    dim = 10
+
+    # FAST-f sample size
+    def all_(x): return x
+    def sqrt_(x): return int(math.sqrt(x)) + 1
+    def log_(x): return int(math.log(x, 2)) + 1
+    def one_(x): return 1
+
+    # BLACKBOX
+    javaFlag = True if ((prog, v) in D4J) else False
+
+    inputFile = "input/{}_{}/{}-bbox.txt".format(prog, v, prog)
+    wBoxFile = "input/{}_{}/{}-{}.txt".format(prog, v, prog, covType)
+    if javaFlag:
+        faultMatrix = "input/{}_{}/fault_matrix.txt".format(prog, v)
+    else:
+        faultMatrix = "input/{}_{}/fault_matrix_key_tc.pickle".format(prog, v)
+
+    outpath = "outputBudget-{}/{}_{}/".format(covType, prog, v)
+    sPath = outpath + "selections/"
+    tPath = outpath + "measures/"
+
     numOfTCS = sum((1 for _ in open(inputFile)))
+
     for reduction in range(1, 30+1):
-        directory = "outputBudget-{}/{}_{}/".format(covType, prog, v)
-        if not os.path.exists(directory):
-            os.makedirs(directory)
-        if not os.path.exists(directory + "selections/"):
-            os.makedirs(directory + "selections/")
-        if not os.path.exists(directory + "measures/"):
-            os.makedirs(directory + "measures/")
-
-        # FAST-R parameters
-        k, n, r, b = 5, 10, 1, 10
-        dim = 10
-
-        # FAST-f sample size
-        def all_(x): return x
-        def sqrt_(x): return int(math.sqrt(x)) + 1
-        def log_(x): return int(math.log(x, 2)) + 1
-        def one_(x): return 1
-
-        # BLACKBOX
-        javaFlag = True if ((prog, v) in D4J) else False
-
-        inputFile = "input/{}_{}/{}-bbox.txt".format(prog, v, prog)
-        wBoxFile = "input/{}_{}/{}-{}.txt".format(prog, v, prog, covType)
-        if javaFlag:
-            faultMatrix = "input/{}_{}/fault_matrix.txt".format(prog, v)
-        else:
-            faultMatrix = "input/{}_{}/fault_matrix_key_tc.pickle".format(prog, v)
-
-        outpath = "outputBudget-{}/{}_{}/".format(covType, prog, v)
-        sPath = outpath + "selections/"
-        tPath = outpath + "measures/"
-
         B = int(numOfTCS * reduction / 100)
 
         for run in range(repeats):
@@ -106,7 +108,7 @@ if __name__ == "__main__":
             pickle.dump((pTime, rTime, fdl), open(tOut, "wb"))
             print("FAST-all", reduction, pTime, rTime, fdl)
 
-       # WHITEBOX APPROACHES
+        # WHITEBOX APPROACHES
         for run in range(repeats):
             pTime, rTime, sel = competitors.ga(wBoxFile, B=B)
             fdl = metric.fdl(sel, faultMatrix, javaFlag)

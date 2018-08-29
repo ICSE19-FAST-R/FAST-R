@@ -30,22 +30,22 @@ In order to replicate the experiment follow these steps:
 1. Execute the `experimentBudget.py` script 
    - `python3 py/experimentBudget.py <coverageType> <program> <version>`
    
-   The possible values for `<coverageType>` are: function, line, branch.
+   The possible values for `<coverageType>` are: `function`, `line`, `branch`.
    
-   The possible values for `<entity> <version>` are: flex_v3, grep_v3, gzip_v1, make_v1, sed_v6, chart_v0, closure_v0, lang_v0, math_v0, time_v0.
+   The possible values for `<entity> <version>` are: `flex v3`, `grep v3`, `gzip v1`, `make v1`, `sed v6`, `chart v0`, `closure v0`, `lang v0`, `math v0`, `time v0`.
 
-2. The results are printed on screen and stored in folder `outputBudget-<coverageType>/`
+2. The results are printed on screen and stored inside folder `outputBudget-<coverageType>/`
 
 
 ### Adequate Scenario
 1. Execute the `experimentAdequate.py` script 
    - `python3 py/experimentAdequate.py <coverageType> <program> <version>`
    
-   The possible values for `<coverageType>` are: function, line, branch.
+   The possible values for `<coverageType>` are: `function`, `line`, `branch`.
    
-   The possible values for `<entity> <version>` are: flex_v3, grep_v3, gzip_v1, make_v1, sed_v6, chart_v0, closure_v0, lang_v0, math_v0, time_v0.
+   The possible values for `<entity> <version>` are: `flex v3`, `grep v3`, `gzip v1`, `make v1`, `sed v6`, `chart v0`, `closure v0`, `lang v0`, `math v0`, `time v0`.
 
-2. The results are printed on screen and stored in folder `outputAdequate-<coverageType>/`
+2. The results are printed on screen and stored inside folder `outputAdequate-<coverageType>/`
 
 
 ### Large Scale Scenario
@@ -55,6 +55,6 @@ In order to replicate the experiment follow these steps:
 2. Execute the `experimentLargeScale.py` script 
    - `python3 py/experimentLargeScale.py <algorithm>`
    
-   The possible values for `<algorithm>` are: FAST++, FAST-CS, FAST-pw, FAST-all.
+   The possible values for `<algorithm>` are: `FAST++`, `FAST-CS`, `FAST-pw`, `FAST-all`.
    
-3. The results are printed on screen and stored in folder `outputLargeScale/`
+3. The results are printed on screen and stored inside folder `outputLargeScale/`

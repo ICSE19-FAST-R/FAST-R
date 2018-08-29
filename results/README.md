@@ -19,7 +19,7 @@ Here you can find the raw data used in our statistical analysis.
    - [data_adequate_SIR_statement.tsv](data/data_adequate_SIR_statement.tsv)
    - [data_adequate_SIR_branch.tsv](data/data_adequate_SIR_branch.tsv)
  - Data used for evaluating the approach in the **large-scale scenario**: 
-   -[data_large_scale.tsv](data/data_large_scale.tsv)
+   - [data_large_scale.tsv](data/data_large_scale.tsv)
  
 ---
 ### The inadequate (budget) scenario

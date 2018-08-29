@@ -18,11 +18,18 @@ along with this source.  If not, see <http://www.gnu.org/licenses/>.
 
 from collections import defaultdict
 from collections import OrderedDict
-from functools import reduce
+import math
 import os
 import random
 import sys
 import time
+
+from functools import reduce
+import numpy as np
+
+from sklearn.feature_extraction.text import HashingVectorizer
+from sklearn.random_projection import johnson_lindenstrauss_min_dim
+from sklearn.random_projection import SparseRandomProjection
 
 import lsh
 
@@ -249,7 +256,6 @@ def fast_(input_file, wBoxFile, selsize, r, b, bbox=False, k=5, memory=False):
         tcs_minhashes, load_time = loadSignatures(sigfile)
 
     tcs = set(tcs_minhashes.keys())
-    print(len(tcs))
 
     BASE = 0.5
     SIZE = int(len(tcs)*BASE) + 1
@@ -465,14 +471,14 @@ def fastPlusPlus(inputFile, wBoxFile, dim=0, S=1, memory=True):
         pTime = t1-t0
     else:
         rpFile = inputFile.replace(".txt", ".rp")
-    if not os.path.exists(rpFile):
-        t0 = time.clock()
-        TS = preparation(inputFile, dim=dim)
-        t1 = time.clock()
-        pTime = t1-t0
-        pickle.dump((pTime, TS), open(rpFile, "wb"))
-    else:
-        pTime, TS = pickle.load(open(rpFile, "rb"))
+        if not os.path.exists(rpFile):
+            t0 = time.clock()
+            TS = preparation(inputFile, dim=dim)
+            t1 = time.clock()
+            pTime = t1-t0
+            pickle.dump((pTime, TS), open(rpFile, "wb"))
+        else:
+            pTime, TS = pickle.load(open(rpFile, "rb"))
 
     tC0 = time.clock()
     C = loadCoverage(wBoxFile)

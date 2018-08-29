@@ -38,7 +38,7 @@ def fft(selection, faultMatrix, javaFlag):
         return -1.0
 
 
-def tsr(selection, faultMatrix, inputFile):
+def tsr(selection, inputFile):
     with open(inputFile) as fIn:
         numOfTCS = sum((1 for line in fIn))
     return (numOfTCS - len(selection)) / numOfTCS

@@ -31,11 +31,8 @@ if __name__ == "__main__":
     D4J = [("math", "v1"), ("closure", "v1"), ("time", "v1"), ("lang", "v1"), ("chart", "v1")]
     script, covType, prog, v = sys.argv
 
-    if (script, v) not in SIR or (script, v) not in D4J:
-        print("Wrong input program")
-        exit()
-
     repeats = 50
+    numOfTCS = sum((1 for _ in open(inputFile)))
     for reduction in range(1, 30+1):
         directory = "outputBudget-{}/{}_{}/".format(covType, prog, v)
         if not os.path.exists(directory):
@@ -69,70 +66,70 @@ if __name__ == "__main__":
         sPath = outpath + "selections/"
         tPath = outpath + "measures/"
 
-        B = int(sum((1 for _ in open(inputFile))) * reduction / 100)
+        B = int(numOfTCS * reduction / 100)
 
         for run in range(repeats):
-            sTime, pTime, sel = fastr.fastPlusPlus(inputFile, dim=dim, B=B)
+            pTime, rTime, sel = fastr.fastPlusPlus(inputFile, dim=dim, B=B)
             fdl = metric.fdl(sel, faultMatrix, javaFlag)
             sOut = "{}/{}-{}-{}.pickle".format(sPath, "FAST++", reduction, run+1)
             pickle.dump(sel, open(sOut, "wb"))
             tOut = "{}/{}-{}-{}.pickle".format(tPath, "FAST++", reduction, run+1)
-            pickle.dump((sTime, pTime, fdl), open(tOut, "wb"))
-            print("FAST++", reduction, sTime, pTime, fdl)
+            pickle.dump((pTime, rTime, fdl), open(tOut, "wb"))
+            print("FAST++", reduction, pTime, rTime, fdl)
 
-       for run in range(repeats):
-           sTime, pTime, sel = fastr.fastCS(inputFile, dim=dim, B=B)
-           fdl = metric.fdl(sel, faultMatrix, javaFlag)
-           sOut = "{}/{}-{}-{}.pickle".format(sPath, "FAST-CS", reduction, run+1)
-           pickle.dump(sel, open(sOut, "wb"))
-           tOut = "{}/{}-{}-{}.pickle".format(tPath, "FAST-CS", reduction, run+1)
-           pickle.dump((sTime, pTime, fdl), open(tOut, "wb"))
-           print("FAST-CS", reduction, sTime, pTime, fdl)
-
-
-       for run in range(repeats):
-           sTime, pTime, sel = fastr.fast_pw(inputFile, r, b, bbox=True, k=k, memory=True, B=B)
-           fdl = metric.fdl(sel, faultMatrix, javaFlag)
-           sOut = "{}/{}-{}-{}.pickle".format(sPath, "FAST-pw", reduction, run+1)
-           pickle.dump(sel, open(sOut, "wb"))
-           tOut = "{}/{}-{}-{}.pickle".format(tPath, "FAST-pw", reduction, run+1)
-           pickle.dump((sTime, pTime, fdl), open(tOut, "wb"))
-           print("FAST-pw", reduction, sTime, pTime, fdl)
+        for run in range(repeats):
+            pTime, rTime, sel = fastr.fastCS(inputFile, dim=dim, B=B)
+            fdl = metric.fdl(sel, faultMatrix, javaFlag)
+            sOut = "{}/{}-{}-{}.pickle".format(sPath, "FAST-CS", reduction, run+1)
+            pickle.dump(sel, open(sOut, "wb"))
+            tOut = "{}/{}-{}-{}.pickle".format(tPath, "FAST-CS", reduction, run+1)
+            pickle.dump((pTime, rTime, fdl), open(tOut, "wb"))
+            print("FAST-CS", reduction, pTime, rTime, fdl)
 
 
-       for run in range(repeats):
-           sTime, pTime, sel = fastr.fast_(inputFile, all_, r=r, b=b, bbox=True, k=k, memory=True, B=B)
-           fdl = metric.fdl(sel, faultMatrix, javaFlag)
-           sOut = "{}/{}-{}-{}.pickle".format(sPath, "FAST-all", reduction, run+1)
-           pickle.dump(sel, open(sOut, "wb"))
-           tOut = "{}/{}-{}-{}.pickle".format(tPath, "FAST-all", reduction, run+1)
-           pickle.dump((sTime, pTime, fdl), open(tOut, "wb"))
-           print("FAST-all", reduction, sTime, pTime, fdl)
+        for run in range(repeats):
+            pTime, rTime, sel = fastr.fast_pw(inputFile, r, b, bbox=True, k=k, memory=True, B=B)
+            fdl = metric.fdl(sel, faultMatrix, javaFlag)
+            sOut = "{}/{}-{}-{}.pickle".format(sPath, "FAST-pw", reduction, run+1)
+            pickle.dump(sel, open(sOut, "wb"))
+            tOut = "{}/{}-{}-{}.pickle".format(tPath, "FAST-pw", reduction, run+1)
+            pickle.dump((pTime, rTime, fdl), open(tOut, "wb"))
+            print("FAST-pw", reduction, pTime, rTime, fdl)
+
+
+        for run in range(repeats):
+            pTime, rTime, sel = fastr.fast_(inputFile, all_, r=r, b=b, bbox=True, k=k, memory=True, B=B)
+            fdl = metric.fdl(sel, faultMatrix, javaFlag)
+            sOut = "{}/{}-{}-{}.pickle".format(sPath, "FAST-all", reduction, run+1)
+            pickle.dump(sel, open(sOut, "wb"))
+            tOut = "{}/{}-{}-{}.pickle".format(tPath, "FAST-all", reduction, run+1)
+            pickle.dump((pTime, rTime, fdl), open(tOut, "wb"))
+            print("FAST-all", reduction, pTime, rTime, fdl)
 
        # WHITEBOX APPROACHES
-       for run in range(repeats):
-           sTime, pTime, sel = competitors.ga(wBoxFile, B=B)
-           fdl = metric.fdl(sel, faultMatrix, javaFlag)
-           sOut = "{}/{}-{}-{}.pickle".format(sPath, "GA", reduction, run+1)
-           pickle.dump(sel, open(sOut, "wb"))
-           tOut = "{}/{}-{}-{}.pickle".format(tPath, "GA", reduction, run+1)
-           pickle.dump((sTime, pTime, fdl), open(tOut, "wb"))
-           print("GA", reduction, sTime, pTime, fdl)
+        for run in range(repeats):
+            pTime, rTime, sel = competitors.ga(wBoxFile, B=B)
+            fdl = metric.fdl(sel, faultMatrix, javaFlag)
+            sOut = "{}/{}-{}-{}.pickle".format(sPath, "GA", reduction, run+1)
+            pickle.dump(sel, open(sOut, "wb"))
+            tOut = "{}/{}-{}-{}.pickle".format(tPath, "GA", reduction, run+1)
+            pickle.dump((pTime, rTime, fdl), open(tOut, "wb"))
+            print("GA", reduction, pTime, rTime, fdl)
 
-       for run in range(repeats):
-           sTime, pTime, sel = competitors.artd(wBoxFile, B=B)
-           fdl = metric.fdl(sel, faultMatrix, javaFlag)
-           sOut = "{}/{}-{}-{}.pickle".format(sPath, "ART-D", reduction, run+1)
-           pickle.dump(sel, open(sOut, "wb"))
-           tOut = "{}/{}-{}-{}.pickle".format(tPath, "ART-D", reduction, run+1)
-           pickle.dump((sTime, pTime, fdl), open(tOut, "wb"))
-           print("ART-D", reduction, sTime, pTime, fdl)
+        for run in range(repeats):
+            pTime, rTime, sel = competitors.artd(wBoxFile, B=B)
+            fdl = metric.fdl(sel, faultMatrix, javaFlag)
+            sOut = "{}/{}-{}-{}.pickle".format(sPath, "ART-D", reduction, run+1)
+            pickle.dump(sel, open(sOut, "wb"))
+            tOut = "{}/{}-{}-{}.pickle".format(tPath, "ART-D", reduction, run+1)
+            pickle.dump((pTime, rTime, fdl), open(tOut, "wb"))
+            print("ART-D", reduction, pTime, rTime, fdl)
 
-       for run in range(repeats):
-           sTime, pTime, sel = competitors.artf(wBoxFile, B=B)
-           fdl = metric.fdl(sel, faultMatrix, javaFlag)
-           sOut = "{}/{}-{}-{}.pickle".format(sPath, "ART-F", reduction, run+1)
-           pickle.dump(sel, open(sOut, "wb"))
-           tOut = "{}/{}-{}-{}.pickle".format(tPath, "ART-F", reduction, run+1)
-           pickle.dump((sTime, pTime, fdl), open(tOut, "wb"))
-           print("ART-F", reduction, sTime, pTime, fdl)
+        for run in range(repeats):
+            pTime, rTime, sel = competitors.artf(wBoxFile, B=B)
+            fdl = metric.fdl(sel, faultMatrix, javaFlag)
+            sOut = "{}/{}-{}-{}.pickle".format(sPath, "ART-F", reduction, run+1)
+            pickle.dump(sel, open(sOut, "wb"))
+            tOut = "{}/{}-{}-{}.pickle".format(tPath, "ART-F", reduction, run+1)
+            pickle.dump((pTime, rTime, fdl), open(tOut, "wb"))
+            print("ART-F", reduction, pTime, rTime, fdl)

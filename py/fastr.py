@@ -265,7 +265,6 @@ def fast_(input_file, selsize, r, b, bbox=False, k=5, memory=False, B=0):
     iteration, total = 0, float(len(tcs_minhashes))
     while len(tcs_minhashes) > 0:
         iteration += 1
-        print(iteration)
         if iteration % 100 == 0:
             sys.stdout.write("  Progress: {}%\r".format(
                 round(100*iteration/total, 2)))
@@ -493,7 +492,7 @@ def fastCS(inputFile, dim=0, B=0, memory=True):
         B = len(TS)
 
     t2 = time.clock()
-    reducedTS = selection(TS, B)
+    reducedTS = reductionCS(TS, B)
     t3 = time.clock()
     sTime = t3-t2
 

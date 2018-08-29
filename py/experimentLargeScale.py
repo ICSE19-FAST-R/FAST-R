@@ -28,10 +28,6 @@ if __name__ == "__main__":
     ALGS = ["FAST++", "FAST-CS", "FAST-pw", "FAST-all"]
     script, alg = sys.argv
 
-    if alg not in ALGS:
-        print("Wrong input algorithm")
-        exit()
-
     directory = "outputLargeScale/"
     if not os.path.exists(directory):
         os.makedirs(directory)
@@ -57,48 +53,47 @@ if __name__ == "__main__":
     tPath = outpath + "measures/"
 
     numOfTCS = sum((1 for _ in open(inputFile)))
-    B = [int(numOfTCS * red / 100) for red in range(1, 30+1)]
-
 
     if alg == "FAST++":
         for reduction in range(30):
-            sTime, pTime, sel = fastr.fastPlusPlus(
-                inputFile, dim=dim, B=B[reduction], memory=False)
+            B = int(numOfTCS * reduction / 100)
+            pTime, rTime, sel = fastr.fastPlusPlus(inputFile, dim=dim, B=B, memory=False)
             sOut = "{}/{}-{}.pickle".format(sPath, "FAST++", reduction+1)
             pickle.dump(sel, open(sOut, "wb"))
             tOut = "{}/{}-{}.pickle".format(tPath, "FAST++", reduction+1)
-            pickle.dump((sTime, pTime), open(tOut, "wb"))
-            print("FAST++", reduction+1, sTime, pTime)
+            pickle.dump((pTime, rTime), open(tOut, "wb"))
+            print("FAST++", reduction+1, pTime, rTime)
 
 
     if alg == "FAST-CS":
         for reduction in range(30):
-            sTime, pTime, sel = fastr.fastCS(
-                inputFile, dim=dim, B=B[reduction], memory=False)
+            B = int(numOfTCS * reduction / 100)
+            pTime, rTime, sel = fastr.fastCS(inputFile, dim=dim, B=B, memory=False)
             sOut = "{}/{}-{}.pickle".format(sPath, "FAST-CS", reduction+1)
             pickle.dump(sel, open(sOut, "wb"))
             tOut = "{}/{}-{}.pickle".format(tPath, "FAST-CS", reduction+1)
-            pickle.dump((sTime, pTime), open(tOut, "wb"))
-            print("FAST-CS", reduction+1, sTime, pTime)
+            pickle.dump((pTime, rTime), open(tOut, "wb"))
+            print("FAST-CS", reduction+1, pTime, rTime)
 
 
     if alg == "FAST-pw":
         for reduction in range(30):
-            sTime, pTime, sel = fastr.fast_pw(
-                inputFile, r, b, bbox=True, k=k, memory=False, B=B)
+            B = int(numOfTCS * reduction / 100)
+            pTime, rTime, sel = fastr.fast_pw(inputFile, r, b, bbox=True, k=k, memory=False, B=B)
             sOut = "{}/{}-{}.pickle".format(sPath, "FAST-pw", reduction+1)
             pickle.dump(sel, open(sOut, "wb"))
             tOut = "{}/{}-{}.pickle".format(tPath, "FAST-pw", reduction+1)
-            pickle.dump((sTime, pTime), open(tOut, "wb"))
-            print("FAST-pw", reduction+1, sTime, pTime)
+            pickle.dump((pTime, rTime), open(tOut, "wb"))
+            print("FAST-pw", reduction+1, pTime, rTime)
 
 
     if alg == "FAST-all":
         for reduction in range(30):
-            sTime, pTime, sel = fastr.fast_(
+            B = int(numOfTCS * reduction / 100)
+            pTime, rTime, sel = fastr.fast_(
                 inputFile, all_, r, b, bbox=True, k=k, memory=False, B=B)
             sOut = "{}/{}-{}.pickle".format(sPath, "FAST-all", reduction+1)
             pickle.dump(sel, open(sOut, "wb"))
             tOut = "{}/{}-{}.pickle".format(tPath, "FAST-all", reduction+1)
-            pickle.dump((sTime, pTime), open(tOut, "wb"))
-            print("FAST-all", reduction+1, sTime, pTime)
+            pickle.dump((pTime, rTime), open(tOut, "wb"))
+            print("FAST-all", reduction+1, pTime, rTime)

@@ -4,9 +4,9 @@ This repository is a companion page for an ICSE'19 submission. It contains all t
 Some additional results, not included in the paper for the sake of space, are also provided.
 
 
-Pseudocodes
+Pseudocode
 ---------------
-The pseudocodes of all algorithms are available [here](pseudocode/README.md) (some of them were not reported in the paper for lack of space).
+The pseudocode of all algorithms are available [here](pseudocode/README.md) (some of them were not reported in the paper for lack of space).
 
 
 Experiment Results and Data

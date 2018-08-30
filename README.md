@@ -58,3 +58,19 @@ In order to replicate the experiment follow these steps:
    The possible values for `<algorithm>` are: `FAST++`, `FAST-CS`, `FAST-pw`, `FAST-all`.
    
 3. The results are printed on screen and stored inside folder `outputLargeScale/`
+
+Directory Structure
+---------------
+This is the root directory of the repository. The directory is structured as follows:
+
+    FAST-R
+     .
+     |
+     |--- input/         Input of the algorithms, i.e. fault matrix, coverage information, and BB representation of subjects.
+     |
+     |--- pseudocode/    Pseudocode of the algorithms.
+     |
+     |--- py/            Implementation of the algorithms and scripts to execute the experiments.
+     |
+     |--- results/       Overview of the experiment results and related raw data.
+  

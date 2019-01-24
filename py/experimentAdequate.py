@@ -1,7 +1,4 @@
 '''
-This file is part of an ICSE'19 submission that is currently under review.
-For more information visit: https://github.com/ICSE19-FAST-R/FAST-R.
-
 This is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as
 published by the Free Software Foundation, either version 3 of the
@@ -25,6 +22,11 @@ import competitors
 import fastr_adequate
 import metric
 
+
+"""
+This file runs all FAST-R algorithms (fastr_adequate.py) and the competitors (competitors.py)
+in the Adequate scenario and in all input test suite.
+"""
 
 if __name__ == "__main__":
     SIR = [("flex", "v3"), ("grep", "v3"), ("gzip", "v1"), ("sed", "v6"), ("make", "v1")]
@@ -51,7 +53,7 @@ if __name__ == "__main__":
     def log_(x): return int(math.log(x, 2)) + 1
     def one_(x): return 1
 
-    # BLACKBOX
+    # BLACKBOX EXPERIMENTS
     javaFlag = True if ((prog, v) in D4J) else False
 
     inputFile = "input/{}_{}/{}-bbox.txt".format(prog, v, prog)
@@ -109,7 +111,7 @@ if __name__ == "__main__":
         print("FAST-all", pTime, cTime, rTime, fdl, tsr)
 
 
-    # WHITEBOX
+    # WHITEBOX EXPERIMENTS
     for run in range(repeats):
         pTime, rTime, sel = competitors.gaAdequacy(wBoxFile)
         cTime = 0.0

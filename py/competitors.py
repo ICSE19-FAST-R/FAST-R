@@ -23,8 +23,6 @@ import sys
 import lsh
 
 
-
-
 """
 This file contains an implementation of the following Test Case Reduction 
 (Prioritization with a budget), each in standard and adequate version:

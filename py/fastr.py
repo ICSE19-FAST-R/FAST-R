@@ -474,7 +474,7 @@ def reductionCS(TS, B):
 
     return reducedTS
 
-# FAST++ test suite reduction algorithm
+# FAST-CS test suite reduction algorithm
 # Returns: preparation time, reduction time, reduced test suite
 def fastCS(inputFile, dim=0, B=0, memory=True):
     if memory:

@@ -1,7 +1,4 @@
 '''
-This file is part of an ICSE'19 submission that is currently under review.
-For more information visit: https://github.com/ICSE19-FAST-R/FAST-R.
-
 This is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as
 published by the Free Software Foundation, either version 3 of the
@@ -22,10 +19,17 @@ import itertools
 
 import xxhash
 
+"""
+This files contains implementations of shingling, minwise hashing, 
+and locality sensitive hashing techniques.
+All techniques are adapted to be used as part of FAST test case 
+prioritization algorithms.
+"""
 
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 # SHINGLING
 
+# return the k-shingles of an input test suite.
 def kShingles(TS, k):
     """INPUT
     (dict)TS: key=tcID, value=(set of entities)
@@ -47,13 +51,14 @@ def kShingles(TS, k):
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 # MINWISEHASHING
 
+# generate a family of hash functions
 def hashFamily(i):
     def hashMember(x):
         return xxhash.xxh64(x, seed=37 * (2 * i + 1)).hexdigest()
 
     return hashMember
 
-
+# compute minhashing of a single test case
 def tcMinhashing(test_case, hash_functions):
     """INPUT
     (pair)test_case: (tcID, set of entities)
@@ -78,6 +83,7 @@ def tcMinhashing(test_case, hash_functions):
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 # LOCALITY SENSITIVE HASHING (LSH)
 
+# implement the LSH bucket for fast similarity-based search
 def LSHBucket(minhashes, b, r, n):
     """INPUT
     (dict)minhashes: key=minhashes of test cases
@@ -105,7 +111,7 @@ def LSHBucket(minhashes, b, r, n):
 
     return bucket
 
-
+# return the set of possibly similar test cases using LSH bucket
 def LSHCandidates(bucket, signature, b, r, n):
     """INPUT
     (dict)bucket: key=band, val=dict(key=col_sig, val=set(tc_IDs))
@@ -137,15 +143,19 @@ def LSHCandidates(bucket, signature, b, r, n):
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 # JACCARD SIMILARITY/DISTANCE EXACT AND ESTIMATES
 
+# exact jaccard similarity
 def jSimilarity(a, b):
     return float(len(a & b)) / len(a | b)
 
+# exact jaccard distance
 def jDistance(a, b):
     return 1.0 - jSimilarity(a, b)
 
+# estimate jaccard similarity using minhashing
 def jSimilarityEstimate(s1, s2):
     assert(len(s1) == len(s2))
     return sum([1 for i in range(len(s1)) if s1[i] == s2[i]]) / float(len(s1))
 
+# estimate jaccard distance using minhashing
 def jDistanceEstimate(s1, s2):
     return 1.0 - jSimilarityEstimate(s1, s2)

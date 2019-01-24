@@ -1,7 +1,4 @@
 '''
-This file is part of an ICSE'19 submission that is currently under review.
-For more information visit: https://github.com/ICSE19-FAST-R/FAST-R.
-
 This is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as
 published by the Free Software Foundation, either version 3 of the
@@ -23,6 +20,10 @@ import sys
 
 import fastr
 
+"""
+This file runs all FAST-R algorithms (fastr_adequate.py) and the competitors (competitors.py)
+in the Large-scale scenario and in all input test suite.
+"""
 
 if __name__ == "__main__":
     ALGS = ["FAST++", "FAST-CS", "FAST-pw", "FAST-all"]

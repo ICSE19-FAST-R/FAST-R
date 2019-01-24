@@ -1,7 +1,4 @@
 '''
-This file is part of an ICSE'19 submission that is currently under review.
-For more information visit: https://github.com/ICSE19-FAST-R/FAST-R.
-
 This is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as
 published by the Free Software Foundation, either version 3 of the
@@ -26,9 +23,21 @@ import sys
 import lsh
 
 
+
+
+"""
+This file contains an implementation of the following Test Case Reduction 
+(Prioritization with a budget), each in standard and adequate version:
+ - Greedy Additional (GA)
+ - Adaptive Random Test with Fixed-size candidate set (ART-F)
+ - Adaptive Random Test with Dynamic-size candidate set (ART-D)
+Each function returns: preparation time, reduction time, reduced test suite.
+"""
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 
-
+# utility function that loads test suites 
+# format: source code of one test case per line (bbox)
+# format: space-separated covered entities of one test case per line (wbox)
 def loadTestSuite(input_file, bbox=False, k=5):
     TS = {}
     with open(input_file) as fin:
@@ -97,7 +106,7 @@ def ga(input_file, B=0):
     return 0.0, ptime, P[1:]
 
 
-# GREEDY SET COVER (ADDITIONAL)
+# GREEDY SET COVER (ADDITIONAL and ADEQUATE)
 def gaAdequacy(input_file):
     def select(TS, U, Cg):
         s, uncs_s = 0, -1
@@ -136,7 +145,7 @@ def gaAdequacy(input_file):
 
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 
-# JIANG (ART)
+# JIANG (ART-D)
 # dynamic candidate set
 def artd(input_file, B=0):
     def generate(U):
@@ -206,7 +215,7 @@ def artd(input_file, B=0):
     return 0.0, ptime, P[1:]
 
 
-# JIANG (ART)
+# JIANG (ART-D ADEQUATE)
 # dynamic candidate set
 def artdAdequacy(input_file, B=0):
     def generate(U):
@@ -284,7 +293,7 @@ def artdAdequacy(input_file, B=0):
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 
 
-# ZHOU
+# ZHOU (ART-F)
 # fixed size candidate set + manhattan distance
 def artf(input_file, B=0):
     def generate(U):
@@ -359,7 +368,7 @@ def artf(input_file, B=0):
     return 0.0, ptime, P[1:]
 
 
-# ZHOU
+# ZHOU (ART-F ADEQUATE)
 # fixed size candidate set + manhattan distance
 def artfAdequacy(input_file, B=0):
     def generate(U):

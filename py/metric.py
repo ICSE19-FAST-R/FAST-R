@@ -1,7 +1,4 @@
 '''
-This file is part of an ICSE'19 submission that is currently under review.
-For more information visit: https://github.com/ICSE19-FAST-R/FAST-R.
-
 This is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as
 published by the Free Software Foundation, either version 3 of the
@@ -20,6 +17,17 @@ from collections import defaultdict
 from pickle import load
 
 
+"""
+This utility file implements some metrics for test case prioritization
+and test suite reduction. In particular:
+ - First Faulty Test (FFT): position of first test case that reveals a fault
+ - Test Suite Reduction (TSR): percentage of reduction 
+ - Fault Detection Loss (FDL): Loss of fault detected by the reduced test suite
+ - Average Percentage of Faults Detected (APFD): effectiveness metric for 
+   test case prioritization
+"""
+
+# First Faulty Test (FFT)
 def fft(selection, faultMatrix, javaFlag):
     if javaFlag:
         faultyTCS = set()
@@ -37,13 +45,13 @@ def fft(selection, faultMatrix, javaFlag):
                 return pos+1
         return -1.0
 
-
+# Test Suite Reduction (TSR)
 def tsr(selection, inputFile):
     with open(inputFile) as fIn:
         numOfTCS = sum((1 for line in fIn))
     return (numOfTCS - len(selection)) / numOfTCS
 
-
+# Fault Detection Loss (FDL)
 def fdl(selection, faultMatrix, javaFlag):
     if javaFlag:
         faultyTCS = set()
@@ -68,7 +76,7 @@ def fdl(selection, faultMatrix, javaFlag):
         return (len(totalFaults) - len(detectedFaults)) / len(totalFaults)
 
 
-
+# Average Percentage of Faults Detected (APFD)
 def apfd(prioritization, fault_matrix, javaFlag):
     """INPUT:
     (list)prioritization: list of prioritization of test cases
@@ -122,7 +130,7 @@ def apfd(prioritization, fault_matrix, javaFlag):
 
         return apfd
 
-
+# utility function to get which faults are detected
 def getFaultDetected(fault_matrix):
     """INPUT:
     (str)fault_matrix: path of fault_matrix (pickle file)

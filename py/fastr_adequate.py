@@ -1,7 +1,4 @@
 '''
-This file is part of an ICSE'19 submission that is currently under review.
-For more information visit: https://github.com/ICSE19-FAST-R/FAST-R.
-
 This is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as
 published by the Free Software Foundation, either version 3 of the
@@ -34,6 +31,11 @@ from sklearn.random_projection import SparseRandomProjection
 import lsh
 
 
+"""
+This file implements FAST-R test suite reduction algorithms for the Adequate scenario.
+"""
+
+# utility function to load test suite
 def loadTestSuite(input_file, bbox=False, k=5):
     TS = defaultdict()
     with open(input_file) as fin:
@@ -53,7 +55,7 @@ def loadTestSuite(input_file, bbox=False, k=5):
         newTS = lsh.kShingles(TS, k)
     return newTS
 
-
+# store signatures on disk for future re-use
 def storeSignatures(input_file, sigfile, hashes, bbox=False, k=5):
     with open(sigfile, "w") as sigfile:
         with open(input_file) as fin:
@@ -76,7 +78,7 @@ def storeSignatures(input_file, sigfile, hashes, bbox=False, k=5):
                 sigfile.write("\n")
                 tcID += 1
 
-
+# load stored signatures
 def loadSignatures(input_file):
     sig = {}
     start = time.clock()
@@ -99,7 +101,7 @@ def loadCoverage(wBoxFile):
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 
 
-# lsh + pairwise comparison with candidate set
+# FAST-PW (pairwise comparison with candidate set)
 def fast_pw(input_file, wBoxFile, r, b, bbox=False, k=5, memory=False):
     n = r * b  # number of hash functions
 
@@ -218,7 +220,7 @@ def fast_pw(input_file, wBoxFile, r, b, bbox=False, k=5, memory=False):
 
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 
-
+# FAST-f (for any input function f, i.e., size of candidate set)
 def fast_(input_file, wBoxFile, selsize, r, b, bbox=False, k=5, memory=False):
     n = r * b  # number of hash functions
 
@@ -332,7 +334,7 @@ def fast_(input_file, wBoxFile, selsize, r, b, bbox=False, k=5, memory=False):
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 # Preparation + utils
 
-
+# load coverage (only for wbox usage)
 def loadCoverage(wBoxFile):
     C = defaultdict(set)
     with open(wBoxFile) as fin:
@@ -340,6 +342,7 @@ def loadCoverage(wBoxFile):
             C[tc] = set(cov.split())
     return C
 
+# compute euclidean distance
 def euclideanDist(v, w):
     d = 0
 
@@ -355,7 +358,7 @@ def euclideanDist(v, w):
 
     return math.sqrt(d)
 
-
+# Preparation phase for FAST++ and FAST-CS
 def preparation(inputFile, dim=0):
     vectorizer = HashingVectorizer()  # compute "TF"
     testCases = [line.rstrip("\n") for line in open(inputFile)]
@@ -382,7 +385,7 @@ def preparation(inputFile, dim=0):
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 # FAST++
 
-
+# FAST++ Reduction phase
 def reductionPlusPlus(TS, C, S):
     reducedTS = []
 
@@ -462,7 +465,8 @@ def reductionPlusPlus(TS, C, S):
 
     return reducedTS
 
-
+# FAST++ test suite reduction algorithm
+# Returns: preparation time, reduction time, reduced test suite
 def fastPlusPlus(inputFile, wBoxFile, dim=0, S=1, memory=True):
     if memory:
         t0 = time.clock()
@@ -494,7 +498,7 @@ def fastPlusPlus(inputFile, wBoxFile, dim=0, S=1, memory=True):
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 # FAST-CS
 
-
+# FAST-CS Reduction phase
 def reductionCS(TS, C, simple=True):
     reducedTS = []
 
@@ -566,7 +570,8 @@ def reductionCS(TS, C, simple=True):
 
     return reducedTS
 
-
+# FAST-CS test suite reduction algorithm
+# Returns: preparation time, reduction time, reduced test suite
 def fastCS(inputFile, wBoxFile, dim=0, memory=True, simple=True):
     if memory:
         t0 = time.clock()

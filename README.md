@@ -1,5 +1,7 @@
 # Scalable Approaches for Test Suite Reduction
 
+[![DOI](https://zenodo.org/badge/145862995.svg)](https://zenodo.org/badge/latestdoi/145862995)
+
 This repository is a companion page for the following publication:
 
 > Emilio Cruciani, Breno Miranda, Roberto Verdecchia, and Antonia Bertolino. Scalable Approaches for Test Suite Reduction. In *Proceedings of ICSE’19: 41st International Conference on Software Engineering, Montreal, Canada, 25-31 May, 2019 (ICSE’19)*, 11 pages.

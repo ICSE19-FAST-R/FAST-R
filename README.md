@@ -27,27 +27,33 @@ In order to replicate the experiment follow these steps:
 1. Clone the repository 
    - `git clone https://github.com/ICSE19-FAST-R/FAST-R`
  
-2. Install the additional python packages required:
+2. If you do not have python3 installed you can get the appropriate version for your OS [here](https://www.python.org/downloads/).
+
+3. Install the additional python packages required:
    - `pip3 install -r requirements.txt`
 
 ### Budget Scenario
 1. Execute the `experimentBudget.py` script 
-   - `python3 py/experimentBudget.py <coverageType> <program> <version>`
+   - `python3 py/experimentBudget.py <coverageType> <program> <version> <repetitions>`
    
    The possible values for `<coverageType>` are: `function`, `line`, `branch`.
    
    The possible values for `<program> <version>` are: `flex v3`, `grep v3`, `gzip v1`, `make v1`, `sed v6`, `chart v0`, `closure v0`, `lang v0`, `math v0`, `time v0`.
+
+   The number of times the experiment should be repeated is defined by `<repetitions>`.
 
 2. The results are printed on screen and stored inside folder `outputBudget-<coverageType>/`
 
 
 ### Adequate Scenario
 1. Execute the `experimentAdequate.py` script 
-   - `python3 py/experimentAdequate.py <coverageType> <program> <version>`
+   - `python3 py/experimentAdequate.py <coverageType> <program> <version> <repetitions>`
    
    The possible values for `<coverageType>` are: `function`, `line`, `branch`.
    
    The possible values for `<program> <version>` are: `flex v3`, `grep v3`, `gzip v1`, `make v1`, `sed v6`, `chart v0`, `closure v0`, `lang v0`, `math v0`, `time v0`.
+
+   The number of times the experiment should be repeated is defined by `<repetitions>`.
 
 2. The results are printed on screen and stored inside folder `outputAdequate-<coverageType>/`
 
@@ -57,9 +63,11 @@ In order to replicate the experiment follow these steps:
    - `cat input/scalability/scalability-bbox.txt.gz_* > input/scalability/scalability-bbox.txt.gz && gunzip input/scalability/scalability-bbox.txt.gz`
 
 2. Execute the `experimentLargeScale.py` script 
-   - `python3 py/experimentLargeScale.py <algorithm>`
+   - `python3 py/experimentLargeScale.py <algorithm> <repetitions>`
    
    The possible values for `<algorithm>` are: `FAST++`, `FAST-CS`, `FAST-pw`, `FAST-all`.
+
+   The number of times the experiment should be repeated is defined by `<repetitions>`.
    
 3. The results are printed on screen and stored inside folder `outputLargeScale/`
 

@@ -36,7 +36,7 @@ In order to replicate the experiment follow these steps:
    
    The possible values for `<coverageType>` are: `function`, `line`, `branch`.
    
-   The possible values for `<entity> <version>` are: `flex v3`, `grep v3`, `gzip v1`, `make v1`, `sed v6`, `chart v0`, `closure v0`, `lang v0`, `math v0`, `time v0`.
+   The possible values for `<program> <version>` are: `flex v3`, `grep v3`, `gzip v1`, `make v1`, `sed v6`, `chart v0`, `closure v0`, `lang v0`, `math v0`, `time v0`.
 
 2. The results are printed on screen and stored inside folder `outputBudget-<coverageType>/`
 
@@ -47,7 +47,7 @@ In order to replicate the experiment follow these steps:
    
    The possible values for `<coverageType>` are: `function`, `line`, `branch`.
    
-   The possible values for `<entity> <version>` are: `flex v3`, `grep v3`, `gzip v1`, `make v1`, `sed v6`, `chart v0`, `closure v0`, `lang v0`, `math v0`, `time v0`.
+   The possible values for `<program> <version>` are: `flex v3`, `grep v3`, `gzip v1`, `make v1`, `sed v6`, `chart v0`, `closure v0`, `lang v0`, `math v0`, `time v0`.
 
 2. The results are printed on screen and stored inside folder `outputAdequate-<coverageType>/`
 

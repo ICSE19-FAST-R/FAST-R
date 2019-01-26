@@ -25,9 +25,23 @@ This file runs all FAST-R algorithms (fastr_adequate.py) and the competitors (co
 in the Large-scale scenario and in all input test suite.
 """
 
+
+usage = """USAGE: python3 py/experimentLargeScale.py <algorithm> <repetitions>
+OPTIONS:
+  <algorithm>: the test suite reduction algorithm.
+    options: FAST++, FAST-CS, FAST-pw, FAST-all
+  <repetitions>: number of times the test suite reduction should be computed.
+    options: positive integer value, e.g. 50"""
+
+
 if __name__ == "__main__":
+    if len(sys.argv) != 3:
+        print(usage)
+        exit()
+
     ALGS = ["FAST++", "FAST-CS", "FAST-pw", "FAST-all"]
-    script, alg = sys.argv
+    script, alg, rep = sys.argv
+    repetitions = int(rep)
 
     directory = "outputLargeScale/"
     if not os.path.exists(directory):
@@ -56,7 +70,7 @@ if __name__ == "__main__":
     numOfTCS = sum((1 for _ in open(inputFile)))
 
     if alg == "FAST++":
-        for reduction in range(30):
+        for reduction in range(repetitions):
             B = int(numOfTCS * reduction / 100)
             pTime, rTime, sel = fastr.fastPlusPlus(inputFile, dim=dim, B=B, memory=False)
             sOut = "{}/{}-{}.pickle".format(sPath, "FAST++", reduction+1)
@@ -67,7 +81,7 @@ if __name__ == "__main__":
 
 
     if alg == "FAST-CS":
-        for reduction in range(30):
+        for reduction in range(repetitions):
             B = int(numOfTCS * reduction / 100)
             pTime, rTime, sel = fastr.fastCS(inputFile, dim=dim, B=B, memory=False)
             sOut = "{}/{}-{}.pickle".format(sPath, "FAST-CS", reduction+1)
@@ -78,7 +92,7 @@ if __name__ == "__main__":
 
 
     if alg == "FAST-pw":
-        for reduction in range(30):
+        for reduction in range(repetitions):
             B = int(numOfTCS * reduction / 100)
             pTime, rTime, sel = fastr.fast_pw(inputFile, r, b, bbox=True, k=k, memory=False, B=B)
             sOut = "{}/{}-{}.pickle".format(sPath, "FAST-pw", reduction+1)
@@ -89,7 +103,7 @@ if __name__ == "__main__":
 
 
     if alg == "FAST-all":
-        for reduction in range(30):
+        for reduction in range(repetitions):
             B = int(numOfTCS * reduction / 100)
             pTime, rTime, sel = fastr.fast_(
                 inputFile, all_, r, b, bbox=True, k=k, memory=False, B=B)

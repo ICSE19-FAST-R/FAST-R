@@ -28,10 +28,26 @@ This file runs all FAST-R algorithms (fastr_adequate.py) and the competitors (co
 in the Adequate scenario and in all input test suite.
 """
 
+
+usage = """USAGE: python3 py/experimentAdequate.py <coverageType> <program> <version> <repetitions>
+OPTIONS:
+  <coverageType>: the target coverage criterion.
+    options: function, line, branch
+  <program> <version>: the target subject and its respective version.
+    options: flex v3, grep v3, gzip v1, make v1, sed v6, chart v0, closure v0, lang v0, math v0, time v0
+  <repetitions>: number of times the test suite reduction should be computed.
+    options: positive integer value, e.g. 50"""
+
+
 if __name__ == "__main__":
+    if len(sys.argv) != 5:
+        print(usage)
+        exit()
+
     SIR = [("flex", "v3"), ("grep", "v3"), ("gzip", "v1"), ("sed", "v6"), ("make", "v1")]
     D4J = [("math", "v1"), ("closure", "v1"), ("time", "v1"), ("lang", "v1"), ("chart", "v1")]
-    script, covType, prog, v = sys.argv
+    script, covType, prog, v, rep = sys.argv
+    repeats = int(rep)
 
     directory = "outputAdequate-{}/{}_{}/".format(covType, prog, v)
     if not os.path.exists(directory):
@@ -39,9 +55,7 @@ if __name__ == "__main__":
     if not os.path.exists(directory + "selections/"):
         os.makedirs(directory + "selections/")
     if not os.path.exists(directory + "measures/"):
-        os.makedirs(directory + "measures/")
-
-    repeats = 50
+        os.makedirs(directory + "measures/")    
 
     # FAST parameters
     k, n, r, b = 5, 10, 1, 10

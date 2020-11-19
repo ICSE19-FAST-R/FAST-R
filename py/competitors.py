@@ -69,7 +69,7 @@ def ga(input_file, B=0):
                 s, uncs_s = ui, uncs
         return s
 
-    ptime_start = time.clock()
+    ptime_start = time.perf_counter()
 
     TCS = loadTestSuite(input_file)
     TS = OrderedDict(sorted(TCS.items(), key=lambda t: -len(t[1])))
@@ -99,7 +99,7 @@ def ga(input_file, B=0):
         Cg = Cg | U[s]
         del U[s]
 
-    ptime = time.clock() - ptime_start
+    ptime = time.perf_counter() - ptime_start
 
     return 0.0, ptime, P[1:]
 
@@ -114,7 +114,7 @@ def gaAdequacy(input_file):
                 s, uncs_s = ui, uncs
         return s
 
-    ptime_start = time.clock()
+    ptime_start = time.perf_counter()
 
     TCS = loadTestSuite(input_file)
     TS = OrderedDict(sorted(TCS.items(), key=lambda t: -len(t[1])))
@@ -136,7 +136,7 @@ def gaAdequacy(input_file):
         Cg = Cg | U[s]
         del U[s]
 
-    ptime = time.clock() - ptime_start
+    ptime = time.perf_counter() - ptime_start
 
     return 0.0, ptime, P[1:]
 
@@ -173,7 +173,7 @@ def artd(input_file, B=0):
 
     # # # # # # # # # # # # # # # # # # # # # #
 
-    ptime_start = time.clock()
+    ptime_start = time.perf_counter()
 
     TS = loadTestSuite(input_file)
 
@@ -208,7 +208,7 @@ def artd(input_file, B=0):
         del U[s]
         C = C - set([s])
 
-    ptime = time.clock() - ptime_start
+    ptime = time.perf_counter() - ptime_start
 
     return 0.0, ptime, P[1:]
 
@@ -243,7 +243,7 @@ def artdAdequacy(input_file, B=0):
 
     # # # # # # # # # # # # # # # # # # # # # #
 
-    ptime_start = time.clock()
+    ptime_start = time.perf_counter()
 
     TS = loadTestSuite(input_file)
 
@@ -283,7 +283,7 @@ def artdAdequacy(input_file, B=0):
         del U[s]
         C = C - set([s])
 
-    ptime = time.clock() - ptime_start
+    ptime = time.perf_counter() - ptime_start
 
     return 0.0, ptime, P[1:]
 
@@ -326,7 +326,7 @@ def artf(input_file, B=0):
 
     # # # # # # # # # # # # # # # # # # # # # #
 
-    ptime_start = time.clock()
+    ptime_start = time.perf_counter()
 
     TS = loadTestSuite(input_file)
 
@@ -361,7 +361,7 @@ def artf(input_file, B=0):
         del U[s]
         C = C - set([s])
 
-    ptime = time.clock() - ptime_start
+    ptime = time.perf_counter() - ptime_start
 
     return 0.0, ptime, P[1:]
 
@@ -401,7 +401,7 @@ def artfAdequacy(input_file, B=0):
 
     # # # # # # # # # # # # # # # # # # # # # #
 
-    ptime_start = time.clock()
+    ptime_start = time.perf_counter()
 
     TS = loadTestSuite(input_file)
 
@@ -441,7 +441,7 @@ def artfAdequacy(input_file, B=0):
         del U[s]
         C = C - set([s])
 
-    ptime = time.clock() - ptime_start
+    ptime = time.perf_counter() - ptime_start
 
     return 0.0, ptime, P[1:]
 

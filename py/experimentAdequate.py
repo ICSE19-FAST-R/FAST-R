@@ -121,8 +121,8 @@ if __name__ == "__main__":
         sOut = "{}/{}-{}.pickle".format(sPath, "FAST-all", run+1)
         pickle.dump(sel, open(sOut, "wb"))
         tOut = "{}/{}-{}.pickle".format(tPath, "FAST-all", run+1)
-        pickle.dump((pTime, cTime, rTime, fdl, tsr), open(tOut, "wb"))
-        print("FAST-all", pTime, cTime, rTime, fdl, tsr)
+        pickle.dump((pTime, cTime, sTime, fdl, tsr), open(tOut, "wb"))
+        print("FAST-all", pTime, cTime, sTime, fdl, tsr)
 
 
     # WHITEBOX EXPERIMENTS

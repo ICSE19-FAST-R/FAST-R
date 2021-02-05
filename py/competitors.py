@@ -205,7 +205,10 @@ def artd(input_file, B=0):
         if len(P) >= B+1:
             break
 
-        del U[s]
+        try:
+                del U[s]
+        except:
+                pass
         C = C - set([s])
 
     ptime = time.clock() - ptime_start
@@ -280,7 +283,10 @@ def artdAdequacy(input_file, B=0):
             break
 
         Cg = Cg | U[s]
-        del U[s]
+        try:
+                del U[s]
+        except:
+                pass
         C = C - set([s])
 
     ptime = time.clock() - ptime_start

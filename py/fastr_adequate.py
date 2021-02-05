@@ -90,7 +90,7 @@ def loadSignatures(input_file):
     return sig, time.clock() - start
 
 
-def loadCoverage(wBoxFile):
+def loadCoverageStart1(wBoxFile):
     C = defaultdict(set)
     with open(wBoxFile) as fin:
         for tc, cov in enumerate(fin):
@@ -106,7 +106,7 @@ def fast_pw(input_file, wBoxFile, r, b, bbox=False, k=5, memory=False):
     n = r * b  # number of hash functions
 
     tC0 = time.clock()
-    C = loadCoverage(wBoxFile)
+    C = loadCoverageStart1(wBoxFile)
     tC1 = time.clock()
     maxCov = reduce(lambda x, y: x | y, C.values())
 
@@ -225,7 +225,7 @@ def fast_(input_file, wBoxFile, selsize, r, b, bbox=False, k=5, memory=False):
     n = r * b  # number of hash functions
 
     tC0 = time.clock()
-    C = loadCoverage(wBoxFile)
+    C = loadCoverageStart1(wBoxFile)
     tC1 = time.clock()
     maxCov = reduce(lambda x, y: x | y, C.values())
 
